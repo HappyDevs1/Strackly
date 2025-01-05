@@ -18,6 +18,6 @@ const ItemSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now}
 });
 
-const Item = mongoose.model<IItem>("Item", ItemSchema);
+const Item = mongoose.models.Item || mongoose.model<IItem>("Item", ItemSchema);
 
 export default Item;
