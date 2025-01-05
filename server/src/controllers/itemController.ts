@@ -41,7 +41,7 @@ export const getItem = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
 
     if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({ message: "Invalid company ID format" });
+      res.status(400).json({ message: "Invalid item ID format" });
       return;
     }
     
@@ -60,11 +60,19 @@ export const getItem = async (req: Request, res: Response): Promise<any> => {
 export const updateItem = async (req: Request, res: Response): Promise<any> => {
   try {
     const { id } = req.params;
+    const { additionalStock } = req.body;
 
-
+    // Check if product ID is y valid
     if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({ message: "Invalid company ID format" });
+      res.status(400).json({ message: "Invalid item ID format" });
       return;
+    }
+
+    // Check if additional stock is provided
+    if (!additionalStock) {
+      return res.status(406).json({ message: "Additional stock is required" });
+    } else if (additionalStock < 0) { // Check if additional stock is a positive number
+      return res.status(400).json({ message: "Additional stock must be a positive number" });
     }
 
     const updateFields = req.body; // Contains dynamic fields to update
@@ -78,8 +86,12 @@ export const updateItem = async (req: Request, res: Response): Promise<any> => {
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
     }
-    
-    res.status(200).json({ updatedItem: item });
+
+    item.stockQuantity += additionalStock; // Update stock quantity
+
+    await item.save(); // Save the updated item
+
+    res.status(200).json({ message: "Stock updated sucessfully", updatedItem: item });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
@@ -90,7 +102,7 @@ export const deleteItem = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
 
     if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({ message: "Invalid company ID format" });
+      res.status(400).json({ message: "Invalid item ID format" });
       return;
     }
 
