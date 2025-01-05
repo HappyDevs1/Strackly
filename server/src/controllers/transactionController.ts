@@ -40,3 +40,13 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+export const getTransactions = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const transactions = await Transaction.find();
+
+    res.status(200).json({ foundTransactions: transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
