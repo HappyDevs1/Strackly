@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoute";
 import itemRoutes from "./routes/itemRoute";
+import transactionRoutes from "./routes/transactionRoute";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/user", userRoutes);
 app.use("/api/item", itemRoutes);
+app.use("/api/transaction", transactionRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
