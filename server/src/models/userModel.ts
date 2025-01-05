@@ -7,6 +7,7 @@ export interface IUser extends Document {
   phone: string;
   password: string;
   allowedToSell: boolean;
+  transactions: Array<any>;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,6 +18,7 @@ const UserSchema: Schema = new Schema({
   phone: { type: String, required: true },
   password: { type: String, required: true },
   allowedToSell: { type: Boolean, required: true, default: false },
+  transactions: { type: Array, default: []},
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
 });
