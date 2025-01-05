@@ -6,7 +6,7 @@ export const registerUser = async (req: Request, res: Response) :Promise<any> =>
   try {
     const { name, email, phone, password } = req.body;
 
-    if (!name || !email || phone || !password ) {
+    if (!name || !email || !phone || !password ) {
       return res.status(406).json({ message: "All fields are required" });
     }
 
