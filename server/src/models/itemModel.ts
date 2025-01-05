@@ -14,7 +14,6 @@ const ItemSchema: Schema = new Schema({
   name: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true, default: 0 },
-  password: { type: String, required: true },
   transactions: { type: Array, default: []},
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
