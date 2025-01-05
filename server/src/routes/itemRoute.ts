@@ -4,7 +4,7 @@ import { addItem, getItem, getItems, updateItem, deleteItem } from "../controlle
 
 const router = express.Router();
 
-router.post("/add", addItem);
+router.post("/add/:id", addItem);
 router.get("/items", getItems);
 router.get("/item/:id", getItem);
 router.put("/update/:id", updateItem);

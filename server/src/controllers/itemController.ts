@@ -4,10 +4,16 @@ import { Types } from "mongoose";
 
 export const addItem = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { name, price, quantity } = req.body;
+    const { name, price, stockQuantity } = req.body;
+    const { id } = req.params;
 
-    if (!name || !price || !quantity) {
+    if (!name || !price || !stockQuantity) {
       return res.status(406).json({ message: "All fields are required" });
+    }
+
+    if (!Types.ObjectId.isValid(id)) {
+      res.status(400).json({ message: "Invalid item ID format" });
+      return;
     }
 
     const existingItem = await Item.findOne({ name });
@@ -16,7 +22,7 @@ export const addItem = async (req: Request, res: Response): Promise<any> => {
       return res.status(409).json({ message: "Item already exists" });
     }
 
-    const newItem = new Item({ name, price, quantity });
+    const newItem = new Item({ userId: id, name, price, stockQuantity });
 
     await newItem.save();
 
