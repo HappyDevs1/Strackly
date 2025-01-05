@@ -4,7 +4,8 @@ import Transaction from "../models/transactionModel";
 
 export const createTransaction = async (req: Request, res: Response) : Promise<any> => {
   try {
-    const { userId, itemId, quantity } = req.body;
+    const { itemId, quantity } = req.body;
+    const { id } = req.params;
 
     // Find the item
     const item = await Item.findById(itemId);
@@ -22,7 +23,7 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
 
     // Create the transaction
     const transaction = new Transaction({
-      userId,
+      userId: id,
       itemId,
       itemName: item.name,
       price: item.price,
