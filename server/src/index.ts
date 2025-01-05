@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoute";
-import bodyParser from "body-parser";
+import itemRoutes from "./routes/itemRoute";
 
 dotenv.config();
 
@@ -13,6 +13,7 @@ const mongo = process.env.MONGO_URL;
 app.use(express.json());
 
 app.use("/api/user", userRoutes);
+app.use("/api/item", itemRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
