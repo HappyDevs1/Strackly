@@ -4,7 +4,7 @@ export interface IItem extends Document {
   _id: string;
   name: string;
   price: number;
-  quantity: number;
+  stockQuantity: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,7 +13,7 @@ const ItemSchema: Schema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
-  StockQuantity: { type: Number, required: true, default: 0 },
+  stockQuantity: { type: Number, required: true, default: 0 },
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
 });
