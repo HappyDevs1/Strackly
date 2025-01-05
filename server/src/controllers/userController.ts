@@ -2,9 +2,10 @@ import { Request, Response } from "express";
 import User from "../models/userModel";
 import bcrypt from "bcrypt";
 
-const registerUser = async (req: Request, res: Response) => {
-  const { name, email, phone, password } = req.body;
+export const registerUser = async (req: Request, res: Response) :Promise<any> => {
   try {
+    const { name, email, phone, password } = req.body;
+
     if (!name || !email || phone || !password ) {
       return res.status(406).json({ message: "All fields are required" });
     }
@@ -27,9 +28,10 @@ const registerUser = async (req: Request, res: Response) => {
   }
 }
 
-export const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+export const loginUser = async (req: Request, res: Response) :Promise<any> => {
   try {
+    const { email, password } = req.body;
+
     if (!req.body) {
       return res.status(406).json({ message: "Fields cannot be empty" });
     }
@@ -44,7 +46,8 @@ export const loginUser = async (req: Request, res: Response) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+    res.status(200).json({ message: "Login successful", user})
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
-}
+} 
