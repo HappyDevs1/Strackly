@@ -21,6 +21,6 @@ const TransactionSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now}
 });
 
-const Transaction = mongoose.models.Transactions || mongoose.model<ITransaction>("ITransaction", TransactionSchema);
+const Transaction = mongoose.models.Transactions || mongoose.model<ITransaction>("Transaction", TransactionSchema);
 
 export default Transaction;
