@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import User from "../models/userModel";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const registerUser = async (req: Request, res: Response) :Promise<any> => {
   try {
@@ -46,7 +52,10 @@ export const loginUser = async (req: Request, res: Response) :Promise<any> => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    res.status(200).json({ message: "Login successful", user})
+
+    const token = jwt.sign({ id: user._id }, JWT_SECRET as string, { expiresIn: "1h" });
+
+    res.status(200).json({ message: "Login successful", loggedInUser: user, loginToken: token});
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
