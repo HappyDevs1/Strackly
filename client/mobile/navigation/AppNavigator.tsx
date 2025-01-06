@@ -1,10 +1,12 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import WelcomeScreen from '../screens/Welcome';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Home from "../screens/HomeScreen";
+import Profile from "../screens/ProfileScreen";
+import Welcome from "../screens/Welcome";
+import RegisterUser from "../screens/RegisterUser";
+import LoginUser from "../screens/LoginUser";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -13,8 +15,8 @@ const Stack = createStackNavigator();
 function BottomTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
@@ -27,10 +29,21 @@ export default function AppNavigator() {
         {/* Landing Screen */}
         <Stack.Screen
           name="Welcome"
-          component={WelcomeScreen}
+          component={Welcome}
           options={{ headerShown: false }} // No header for Welcome
         />
-        
+        <Stack.Screen
+          name="RegisterUser"
+          component={RegisterUser}
+          options={{ headerShown: false }} // No header for Welcome
+        />
+
+        <Stack.Screen
+          name="LoginUser"
+          component={LoginUser}
+          options={{ headerShown: false }} // No header for Welcome
+        />
+
         {/* Main App (Bottom Tabs) */}
         <Stack.Screen
           name="Main"
