@@ -27,7 +27,7 @@ export default function Welcome({ navigation }: any) {
         </StyledView>
         <Button title='Get Started' onPress={() => navigation.navigate('LoginUser')} style='mt-4' />
           <StyledText className='text-gray-500 mt-7'>Don't Have An Account ?</StyledText>
-          <StyledText className='text-blue-600 mt-2' onPress={() => navigation.navigate('SignupUser')}>Register Now</StyledText>
+          <StyledText className='text-blue-600 mt-2' onPress={() => navigation.navigate('RegisterUser')}>Register Now</StyledText>
       </StyledView>
     </StyledImageBackground>
   );
