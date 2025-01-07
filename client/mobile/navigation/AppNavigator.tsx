@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -22,13 +22,24 @@ const StyledView = styled(View);
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+// Custom Barcode Scanner Button
+const FloatingTabButton = ({ onPress }: any) => (
+  <TouchableOpacity
+    style={styles.floatingButton}
+    onPress={onPress}
+    activeOpacity={0.7}
+  >
+    <Icon name="barcode-outline" size={30} color="#fff" />
+  </TouchableOpacity>
+);
+
 // Bottom Tab Navigator (for main app screens)
 function BottomTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarStyle: { backgroundColor: "#f8f9fa", height: 60 }, // Modern look with a light background
-        tabBarActiveTintColor: "tomato",
+        tabBarStyle: { backgroundColor: "#f8f9fa", height: 60 },
+        tabBarActiveTintColor: "#007bff",
         tabBarInactiveTintColor: "gray",
         tabBarLabelStyle: { fontSize: 12 },
         headerShown: false,
@@ -42,6 +53,9 @@ function BottomTabs() {
             case "Products":
               iconName = "cube-outline";
               break;
+            case "BarcodeScanner":
+              // No icon here since we're customizing the tab button
+              return null;
             case "Analytics":
               iconName = "stats-chart-outline";
               break;
@@ -58,6 +72,17 @@ function BottomTabs() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Products" component={Products} />
+      
+      {/* Floating Tab */}
+      <Tab.Screen
+        name="BarcodeScanner"
+        component={() => null} // Temporary null component
+        options={{
+          tabBarButton: (props) => <FloatingTabButton {...props} />,
+          tabBarLabel: () => null, // Hide the label
+        }}
+      />
+      
       <Tab.Screen name="Analytics" component={Analytics} />
       <Tab.Screen name="Notifications" component={Notifications} />
     </Tab.Navigator>
@@ -73,25 +98,44 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Welcome"
           component={Welcome}
-          options={{ headerShown: false }} // No header for Welcome
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="RegisterUser"
           component={RegisterUser}
-          options={{ headerShown: false }} // No header for Register
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="LoginUser"
           component={LoginUser}
-          options={{ headerShown: false }} // No header for Login
+          options={{ headerShown: false }}
         />
         {/* Main App (Bottom Tabs) */}
         <Stack.Screen
           name="Main"
           component={BottomTabs}
-          options={{ headerShown: false }} // Hide stack header when showing tabs
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+// Styles
+const styles = StyleSheet.create({
+  floatingButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "#007bff", // Blue background
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 15, // Push it upwards 50% of the tab bar height
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5, // Add shadow on Android
+  },
+});
