@@ -14,6 +14,7 @@ import Notifications from "../screens/Notifications";
 import Welcome from "../screens/Welcome";
 import RegisterUser from "../screens/RegisterUser";
 import LoginUser from "../screens/LoginUser";
+import BarcodeScanner from "../screens/BarcodeScanner";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -76,7 +77,7 @@ function BottomTabs() {
       {/* Floating Tab */}
       <Tab.Screen
         name="BarcodeScanner"
-        component={() => null} // Temporary null component
+        component={BarcodeScanner} // Redirect to barcode scanner component
         options={{
           tabBarButton: (props) => <FloatingTabButton {...props} />,
           tabBarLabel: () => null, // Hide the label
