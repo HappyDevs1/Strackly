@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from "@react-navigation/native";
 import { styled } from 'nativewind';
 import Header from '../components/Header';
 import Input from '../components/Input';
@@ -9,21 +8,16 @@ import Button from '../components/Button';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const LoginUser = () => {
+const LoginUser = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
 
   const handleLogin = () => {
-    // Add your authentication logic here
     if (email && password) {
       console.log("User logged in successfully");
 
-      // Navigate to the Home screen (BottomTabs)
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Main" }], // This ensures the user cannot go back to the login screen
-      });
+      // Navigate to the Main screen (BottomTabs)
+      navigation.navigate("Main"); // Direct navigation to Main screen
     } else {
       console.log("Please enter valid credentials");
     }
@@ -50,7 +44,7 @@ const LoginUser = () => {
           placeholder="Enter your password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry // Hides the password input
+          secureTextEntry
         />
         <Button title="Login" onPress={handleLogin} style="mt-4" />
       </StyledView>
@@ -60,7 +54,7 @@ const LoginUser = () => {
         <StyledText className="text-gray-500 mb-1">
           Don't have an account yet?
         </StyledText>
-        <TouchableOpacity onPress={() => navigation.navigate('RegisterUser')}>
+        <TouchableOpacity onPress={() => navigation.navigate("RegisterUser")}>
           <StyledText className="text-blue-500 font-semibold">Register</StyledText>
         </TouchableOpacity>
       </StyledView>
