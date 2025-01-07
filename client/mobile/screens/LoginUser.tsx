@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
+import { useNavigation } from "@react-navigation/native";
 import { styled } from 'nativewind';
 import Header from '../components/Header';
 import Input from '../components/Input';
@@ -8,9 +9,25 @@ import Button from '../components/Button';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const LoginUser = ({ navigation }: any) => {
+const LoginUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+
+  const handleLogin = () => {
+    // Add your authentication logic here
+    if (email && password) {
+      console.log("User logged in successfully");
+
+      // Navigate to the Home screen (BottomTabs)
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Main" }], // This ensures the user cannot go back to the login screen
+      });
+    } else {
+      console.log("Please enter valid credentials");
+    }
+  };
 
   return (
     <StyledView className="flex-1 bg-gray-100 justify-center px-6">
@@ -35,7 +52,7 @@ const LoginUser = ({ navigation }: any) => {
           onChangeText={setPassword}
           secureTextEntry // Hides the password input
         />
-        <Button title="Login" onPress={() => console.log('Login')} style="mt-4" />
+        <Button title="Login" onPress={handleLogin} style="mt-4" />
       </StyledView>
 
       {/* Already Have An Account Section */}
@@ -43,8 +60,8 @@ const LoginUser = ({ navigation }: any) => {
         <StyledText className="text-gray-500 mb-1">
           Don't have an account yet?
         </StyledText>
-        <TouchableOpacity onPress={() => console.log('Navigate to Register')}>
-          <StyledText onPress={() => navigation.navigate("RegisterUser")} className="text-blue-500 font-semibold">Register</StyledText>
+        <TouchableOpacity onPress={() => navigation.navigate('RegisterUser')}>
+          <StyledText className="text-blue-500 font-semibold">Register</StyledText>
         </TouchableOpacity>
       </StyledView>
     </StyledView>

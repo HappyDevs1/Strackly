@@ -5,7 +5,7 @@ import { styled } from 'nativewind';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const HomeScreen = () => {
+const Home = () => {
   return (
     <StyledView>
       <StyledText>HomeScreen</StyledText>
@@ -13,4 +13,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default Home
