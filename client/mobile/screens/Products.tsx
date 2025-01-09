@@ -24,8 +24,11 @@ const Products = ({ navigation }: any) => {
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
-      <StyledView className="bg-blue-500 pb-4 rounded-b-3xl">
-        <Header title="Inventory" />
+      <StyledView className="bg-blue-500 pb-4 px-6 rounded-b-3xl">
+      <StyledView className="mt-6">
+          <StyledText className="text-white text-2xl font-bold">Products</StyledText>
+          <StyledText className="text-gray-200 text-sm mt-1">Monitor your store's financial health</StyledText>
+        </StyledView>
         <StyledView className="flex flex-row justify-end mt-3 px-4">
           {/* Buttons with Icons */}
           <Button title="Add Product" onPress={() => navigation.navigate("UpdateStock")} icon="add" marginRight={12} />
