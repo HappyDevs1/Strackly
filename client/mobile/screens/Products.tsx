@@ -20,7 +20,7 @@ const Button = ({ title, onPress, icon, marginRight }: { title: string; onPress:
   );
 };
 
-const Products = () => {
+const Products = ({ navigation }: any) => {
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
@@ -28,7 +28,7 @@ const Products = () => {
         <Header title="Inventory" />
         <StyledView className="flex flex-row justify-end mt-3 px-4">
           {/* Buttons with Icons */}
-          <Button title="Add Product" onPress={() => {}} icon="add" marginRight={12} />
+          <Button title="Add Product" onPress={() => navigation.navigate("UpdateStock")} icon="add" marginRight={12} />
           <Button title="Filter" onPress={() => {}} icon="filter" />
         </StyledView>
       </StyledView>

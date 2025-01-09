@@ -15,6 +15,7 @@ import Welcome from "../screens/Welcome";
 import RegisterUser from "../screens/RegisterUser";
 import LoginUser from "../screens/LoginUser";
 import BarcodeScanner from "../screens/BarcodeScanner";
+import UpdateStock from "../screens/UpdateStock";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -109,6 +110,11 @@ export default function AppNavigator() {
         <Stack.Screen
           name="LoginUser"
           component={LoginUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateStock"
+          component={UpdateStock}
           options={{ headerShown: false }}
         />
         {/* Main App (Bottom Tabs) */}
