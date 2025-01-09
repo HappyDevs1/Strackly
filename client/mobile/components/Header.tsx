@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: 'black',
+    color: 'white',
     textAlign: 'center', // Ensures text is centered
   },
   subtitle: {
