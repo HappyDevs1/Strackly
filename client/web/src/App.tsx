@@ -1,19 +1,19 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './navbar/NavBar';
-import Home from './navbar/Home';
-import Products from './navbar/Products';
-import Analytics from './navbar/Analytics';
-import Notifications from './navbar/Notifications';
+import Dashboard from './navbar/Dashboard';
+import Inventory from './navbar/Inventory';
+import Orders from './navbar/Orders';
+import History from './navbar/History';
 
 function App() {
   return (
-    <div>
+    <div className='flex gap-5'>
       <NavBar />
       <Routes>
-        <Route path='/home' element={<Home />} />
-        <Route path='/products' element={<Products />} />
-        <Route path='/analytics' element={<Analytics />} />
-        <Route path='/notifications' element={<Notifications />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/inventory' element={<Inventory />} />
+        <Route path='/orders' element={<Orders />} />
+        <Route path='/history' element={<History />} />
       </Routes>
     </div>
   )
