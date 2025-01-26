@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import NavBar from './navbar/NavBar';
 
 function App() {
   return (
-    <div className=''>
-      <p className='text-blue-500'>People</p>
-      </div>
+    <div>
+      <NavBar />
+    </div>
   )
 }
 
