@@ -8,7 +8,7 @@ import { PiGraphBold } from "react-icons/pi";
 function NavBar() {
   return (
     <div>
-      <div className="mx-10 flex flex-col justify-between">
+      <div className="mx-10 flex flex-col justify-between bg-white">
         <div className="flex items-center gap-2 py-8">
         <PiGraphBold className="text-blue-400 text-5xl"/>
           <Link to="/dashboard" className="text-2xl font-bold">Strackly</Link>

@@ -1,6 +1,11 @@
+import NavHeader from "../components/NavHeader"
+
 function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <div>
+      <NavHeader />
+      <div>Dashboard</div>
+    </div>
   )
 }
 

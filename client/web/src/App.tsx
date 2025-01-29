@@ -7,14 +7,17 @@ import History from './navbar/History';
 
 function App() {
   return (
-    <div className='flex gap-5'>
+    <div className='flex gap-5 bg-slate-50'>
       <NavBar />
+      <div className='border-l px-12 bg-slate-50'>
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/inventory' element={<Inventory />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/history' element={<History />} />
       </Routes>
+      </div>
+      
     </div>
   )
 }
