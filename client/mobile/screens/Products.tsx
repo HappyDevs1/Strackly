@@ -1,8 +1,9 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from 'nativewind';
 import Header from '../components/Header';
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from "axios";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -21,6 +22,22 @@ const Button = ({ title, onPress, icon, marginRight }: { title: string; onPress:
 };
 
 const Products = ({ navigation }: any) => {
+  const endpoint = "http://localhost:3000/api/item/items";
+
+  const fetchProduct = async () => {
+    try {
+      const products = await axios.get(endpoint);
+
+      console.log(products)
+
+    } catch (error) {
+      console.error("Failed to fetch product", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, [])
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
@@ -32,7 +49,7 @@ const Products = ({ navigation }: any) => {
         <StyledView className="flex flex-row justify-end mt-3 px-4">
           {/* Buttons with Icons */}
           <Button title="Add Product" onPress={() => navigation.navigate("UpdateStock")} icon="add" marginRight={12} />
-          <Button title="Filter" onPress={() => {}} icon="filter" />
+          <Button title="Filter" onPress={fetchProduct} icon="filter" />
         </StyledView>
       </StyledView>
 
