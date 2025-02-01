@@ -53,6 +53,7 @@ interface Product {
   name: string;
   price: number;
   stockQuantity: number;
+  picture: string
 }
 
 const Products = ({ navigation }: any) => {
@@ -111,7 +112,7 @@ const Products = ({ navigation }: any) => {
               {/* Content Row */}
               <StyledView className="flex flex-row items-center">
                 {/* Product Image */}
-                <StyledImage source={{}} className="w-20 h-20 rounded-lg" />
+                <StyledImage source={{ uri: item.picture }} className="w-20 h-20 rounded-lg" />
 
                 {/* Product Details */}
                 <StyledView className="ml-4">
