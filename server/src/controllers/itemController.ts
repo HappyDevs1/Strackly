@@ -4,10 +4,10 @@ import { Types } from "mongoose";
 
 export const addItem = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { name, price, stockQuantity } = req.body;
+    const { name, price, stockQuantity, picture } = req.body;
     const { id } = req.params;
 
-    if (!name || !price || !stockQuantity) {
+    if (!name || !price || !stockQuantity || !picture) {
       return res.status(406).json({ message: "All fields are required" });
     }
 
@@ -22,7 +22,7 @@ export const addItem = async (req: Request, res: Response): Promise<any> => {
       return res.status(409).json({ message: "Item already exists" });
     }
 
-    const newItem = new Item({ userId: id, name, price, stockQuantity });
+    const newItem = new Item({ userId: id, name, price, stockQuantity, picture });
 
     await newItem.save();
 
