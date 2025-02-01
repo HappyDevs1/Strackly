@@ -22,13 +22,13 @@ const Button = ({ title, onPress, icon, marginRight }: { title: string; onPress:
 };
 
 const Products = ({ navigation }: any) => {
-  const endpoint = "http://localhost:3000/api/item/items";
+  const endpoint = "http://172.17.16.1:3000/api/item/items";
 
   const fetchProduct = async () => {
     try {
       const products = await axios.get(endpoint);
 
-      console.log(products)
+      console.log(products.data.availableItems)
 
     } catch (error) {
       console.error("Failed to fetch product", error);
