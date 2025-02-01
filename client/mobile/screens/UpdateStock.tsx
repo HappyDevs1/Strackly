@@ -1,5 +1,6 @@
 import { View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -9,8 +10,10 @@ const StyledTextInput = styled(TextInput);
 const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledImage = styled(Image);
 
-const UpdateStock = () => {
+const UpdateStock = ({ route }: any) => {
   const [quantity, setQuantity] = useState('');
+  const { item } = route.params;
+  const navigation = useNavigation();
 
   const handleUpdateStock = () => {
     if (!quantity || isNaN(Number(quantity))) {
@@ -28,7 +31,7 @@ const UpdateStock = () => {
         <StyledView className="flex flex-row items-center justify-between mt-6">
           {/* Back Icon */}
           <StyledTouchableOpacity className="p-3 bg-white rounded-xl shadow-md">
-            <Icon name="arrow-back-outline" size={21} color="black" />
+            <Icon name="arrow-back-outline" size={21} color="black" onPress={() => navigation.goBack()}/>
           </StyledTouchableOpacity>
 
           {/* Page Title */}
@@ -46,16 +49,14 @@ const UpdateStock = () => {
           <StyledView className="flex flex-row items-center">
             {/* Product Image */}
             <StyledImage
-              source={{
-                uri: 'https://oasisliquordistributors.co.za/wp-content/uploads/2022/11/oasis_wholesaler-coke_202l-145.jpg',
-              }}
+              source={{ uri: item.picture }}
               className="w-16 h-16 rounded-lg"
             />
 
             {/* Product Details */}
             <StyledView className="ml-4">
-              <StyledText className="text-sm font-medium text-gray-700">Product Name: Coca Cola</StyledText>
-              <StyledText className="text-sm font-medium text-gray-700">Current Stock: 75</StyledText>
+              <StyledText className="text-sm font-medium text-gray-700">Product Name: {item.name}</StyledText>
+              <StyledText className="text-sm font-medium text-gray-700">Current Stock: {item.stockQuantity}</StyledText>
             </StyledView>
           </StyledView>
         </StyledView>

@@ -53,7 +53,7 @@ interface Product {
   name: string;
   price: number;
   stockQuantity: number;
-  picture: string
+  picture: string;
 }
 
 const Products = ({ navigation }: any) => {
@@ -100,32 +100,37 @@ const Products = ({ navigation }: any) => {
 
       <FlatList
         data={product}
-        keyExtractor={(item) => item._id} // Ensure each key is unique
+        keyExtractor={(item) => item._id.toString()}
         renderItem={({ item }) => (
-          <StyledView className="mt-6 mx-4">
-            <StyledView className="bg-white rounded-xl shadow-lg p-4">
-              {/* Mini Heading */}
-              <StyledText className="text-lg font-bold mb-4">
-                {item.name}
-              </StyledText>
+          <TouchableOpacity onPress={() => navigation.navigate("UpdateStock", { item })}>
+            <StyledView className="mt-6 mx-4">
+              <StyledView className="bg-white rounded-xl shadow-lg p-4">
+                {/* Mini Heading */}
+                <StyledText className="text-lg font-bold mb-4">
+                  {item.name}
+                </StyledText>
 
-              {/* Content Row */}
-              <StyledView className="flex flex-row items-center">
-                {/* Product Image */}
-                <StyledImage source={{ uri: item.picture }} className="w-20 h-20 rounded-lg" />
+                {/* Content Row */}
+                <StyledView className="flex flex-row items-center">
+                  {/* Product Image */}
+                  <StyledImage
+                    source={{ uri: item.picture }}
+                    className="w-20 h-20 rounded-lg"
+                  />
 
-                {/* Product Details */}
-                <StyledView className="ml-4">
-                  <StyledText className="text-sm font-medium text-gray-700">
-                    Price: R{item.price}
-                  </StyledText>
-                  <StyledText className="text-sm font-medium text-gray-700">
-                    Stock: {item.stockQuantity}
-                  </StyledText>
+                  {/* Product Details */}
+                  <StyledView className="ml-4">
+                    <StyledText className="text-sm font-medium text-gray-700">
+                      Price: R{item.price}
+                    </StyledText>
+                    <StyledText className="text-sm font-medium text-gray-700">
+                      Stock: {item.stockQuantity}
+                    </StyledText>
+                  </StyledView>
                 </StyledView>
               </StyledView>
             </StyledView>
-          </StyledView>
+          </TouchableOpacity>
         )}
       />
     </StyledView>
