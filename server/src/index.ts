@@ -12,13 +12,8 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const mongo = process.env.MONGO_URL;
 
-// enabling CORS for some specific origins only.
-let corsOptions = {
-  origin : ['http://localhost:8081', 'exp://10.32.214.32:8081'],
-}
-
 app.use(express.json());
-app.use(cors(corsOptions))
+app.use(cors())
 
 app.use("/api/user", userRoutes);
 app.use("/api/item", itemRoutes);
