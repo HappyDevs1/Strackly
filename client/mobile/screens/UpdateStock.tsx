@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -11,18 +12,33 @@ const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledImage = styled(Image);
 
 const UpdateStock = ({ route }: any) => {
-  const [quantity, setQuantity] = useState('');
+  const [quantity, setQuantity] = useState("");
   const { item } = route.params;
   const navigation = useNavigation();
 
-  const handleUpdateStock = () => {
+  const handleUpdateStock = async () => {
     if (!quantity || isNaN(Number(quantity))) {
       Alert.alert('Invalid Input', 'Please enter a valid quantity.');
       return;
     }
-    Alert.alert('Stock Updated', `Successfully added ${quantity} to the existing stock.`);
-    setQuantity('');
+    try {
+      const endpoint = `http://192.168.18.12:3000/api/item/update/${item._id}`;
+      axios.put(endpoint, { additionalStock: Number(quantity) })
+        .then((response) => {
+          console.log('Stock updated successfully:', response.data);
+          Alert.alert('Success', 'Stock updated successfully!');
+          navigation.goBack();
+        })
+        .catch((error) => {
+          console.error('Error response:', error.response?.data || error.message);
+          Alert.alert('Error', 'An error occurred while updating stock.');
+        });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      Alert.alert('Error', 'An error occurred while updating stock.');
+    }
   };
+  
 
   return (
     <StyledView className="flex-1 bg-gray-100">
