@@ -58,7 +58,7 @@ interface Product {
 
 const Products = ({ navigation }: any) => {
   const [product, setProduct] = useState<Product[]>([]);
-  const endpoint = "http://10.127.35.68:3000/api/item/items";
+  const endpoint = "http://192.168.18.12:3000/api/item/items";
 
   const fetchProduct = async () => {
     try {
