@@ -11,7 +11,6 @@ export interface IItem extends Document {
 }
 
 const ItemSchema: Schema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
   stockQuantity: { type: Number, required: true, default: 0 },
