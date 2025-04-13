@@ -1,32 +1,28 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface IUser extends Document {
+export interface IMaster extends Document {
   _id: string;
   name: string;
   email: string;
   phone: string;
-  organisationName: string;
-  organisationId: string;
   password: string;
   allowedToSell: boolean;
-  role: string;
+  master: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const UserSchema: Schema = new Schema({
+const MasterUserSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
-  organisationName: { type: String, required: true },
-  organisationId: { type: String, required: true },
   password: { type: String, required: true },
   allowedToSell: { type: Boolean, required: true, default: true },
-  master: {type: Boolean, required: true, default: true},
-  createdAt: { type: Date, default: Date.now},
-  updatedAt: { type: Date, default: Date.now}
+  master: { type: Boolean, required: true, default: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
-const MasterUser = mongoose.model<IUser>("MasterUser", UserSchema);
+const MasterUser = mongoose.model<IMaster>("MasterUser", MasterUserSchema);
 
 export default MasterUser;
