@@ -1,19 +1,17 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface IUser extends Document {
+export interface IEmployee extends Document {
   _id: string;
   username: string;
-  organisationId: string;
   password: string;
   allowedToSell: boolean;
-  role: string;
+  master: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-const UserSchema: Schema = new Schema({
+const EmployeeUserSchema: Schema = new Schema({
   username: { type: String, required: true },
-  organisationId: { type: String, required: true },
   password: { type: String, required: true },
   allowedToSell: { type: Boolean, required: true, default: false },
   master: {type: Boolean, required: true, default: false },
@@ -21,6 +19,6 @@ const UserSchema: Schema = new Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-const EmployeeUser = mongoose.model<IUser>("EmployeeUser", UserSchema);
+const EmployeeUser = mongoose.model<IEmployee>("EmployeeUser", EmployeeUserSchema);
 
 export default EmployeeUser;
