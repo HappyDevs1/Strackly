@@ -15,12 +15,14 @@ const UserSchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
+  organisationName: { type: String, required: true },
+  organisationId: { type: String, required: true },
   password: { type: String, required: true },
-  allowedToSell: { type: Boolean, required: true, default: false },
+  allowedToSell: { type: Boolean, required: true, default: true },
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
 });
 
-const User = mongoose.model<IUser>("User", UserSchema);
+const MasterUser = mongoose.model<IUser>("MasterUser", UserSchema);
 
-export default User;
+export default MasterUser;

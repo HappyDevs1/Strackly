@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import User from "../models/userModel";
+import User from "../models/masterUserModel";
 
 dotenv.config();
 
@@ -11,7 +11,11 @@ export interface AuthRequest extends Request {
   user?: any;
 }
 
-export const authenticateMiddleware = async (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authenticateMiddleware = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -20,7 +24,7 @@ export const authenticateMiddleware = async (req: AuthRequest, res: Response, ne
 
   try {
     const decoded: any = jwt.verify(token, JWT_SECRET as string);
-    const user = await User.findById(decoded.id) || User.findById(decoded.id);
+    const user = (await User.findById(decoded.id)) || User.findById(decoded.id);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
