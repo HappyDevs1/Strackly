@@ -2,9 +2,10 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import userRoutes from "./routes/userRoute";
+import userRoutes from "./routes/masterUserRoute";
 import itemRoutes from "./routes/itemRoute";
 import transactionRoutes from "./routes/transactionRoute";
+import organisationRoutes from "./routes/organisationRoute";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cors())
 app.use("/api/user", userRoutes);
 app.use("/api/item", itemRoutes);
 app.use("/api/transaction", transactionRoutes);
+app.use("/api/organisation", organisationRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
