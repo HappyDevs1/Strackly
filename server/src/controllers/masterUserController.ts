@@ -36,7 +36,7 @@ export const registerMasterUser = async (
 
     const existingMasterUser = await MasterUser.find();
 
-    if (existingMasterUser) {
+    if (existingMasterUser.length >= 1) {
       return res.status(409).json({ message: "Cannot have more than one master user" });
     }
 
