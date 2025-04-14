@@ -16,7 +16,7 @@ const OrganisationSchema: Schema = new Schema({
   organisationName: { type: String, required: true },
   masterUser: { type: mongoose.Schema.Types.ObjectId, ref: "MasterUser" },
   employees: [{ type: mongoose.Schema.Types.ObjectId, ref: "EmployeeUser"}],
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
   transaction: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
   revenue: { type: Number, default: 0 },
   createdAt: { type: Date, default: Date.now},
