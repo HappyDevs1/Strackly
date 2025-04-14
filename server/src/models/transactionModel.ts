@@ -2,8 +2,8 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface ITransaction extends Document {
   _id: string;
-  userId: string;
-  itemId: string;
+  employeeId: mongoose.ObjectId;
+  itemId: mongoose.ObjectId;
   price: number;
   quantity: number;
   totalAmount: number;
@@ -12,13 +12,13 @@ export interface ITransaction extends Document {
 }
 
 const TransactionSchema: Schema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  employeeId: { type: Schema.Types.ObjectId, ref: "EmployeeUser", required: true },
   itemId: { type: Schema.Types.ObjectId, ref: "Item", required: true },
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
-  createdAt: { type: Date, default: Date.now},
-  updatedAt: { type: Date, default: Date.now}
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
 const Transaction = mongoose.models.Transactions || mongoose.model<ITransaction>("Transaction", TransactionSchema);
