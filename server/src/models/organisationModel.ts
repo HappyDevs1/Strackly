@@ -3,6 +3,9 @@ import mongoose, { Document, mongo, Schema } from "mongoose";
 export interface IOrganisation extends Document {
   _id: string;
   organisationName: string;
+  organisationAddress: string;
+  organisationPhone: number;
+  organisationEmail: string;
   masterUser: mongoose.ObjectId;
   employees: mongoose.ObjectId[];
   products: mongoose.ObjectId[];
@@ -14,6 +17,9 @@ export interface IOrganisation extends Document {
 
 const OrganisationSchema: Schema = new Schema({
   organisationName: { type: String, required: true },
+  organisationAddress: { type: String, required: true },
+  organisationPhone: { type: Number, default: 0 },
+  organisationEmail: { type: String, required: true },
   masterUser: { type: mongoose.Schema.Types.ObjectId, ref: "MasterUser" },
   employees: [{ type: mongoose.Schema.Types.ObjectId, ref: "EmployeeUser"}],
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
