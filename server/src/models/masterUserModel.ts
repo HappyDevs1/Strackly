@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IMaster extends Document {
   _id: string;
   name: string;
+  organisation: mongoose.ObjectId;
   email: string;
   phone: string;
   password: string;
@@ -13,6 +14,7 @@ export interface IMaster extends Document {
 }
 
 const MasterUserSchema: Schema = new Schema({
+  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation" },
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },

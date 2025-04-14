@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface IEmployee extends Document {
   _id: string;
+  organisation: mongoose.ObjectId;
   username: string;
   password: string;
   allowedToSell: boolean;
@@ -11,6 +12,7 @@ export interface IEmployee extends Document {
 }
 
 const EmployeeUserSchema: Schema = new Schema({
+  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation" },
   username: { type: String, required: true },
   password: { type: String, required: true },
   allowedToSell: { type: Boolean, required: true, default: false },

@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface ITransaction extends Document {
   _id: string;
+  organisation: mongoose.ObjectId;
   employeeId: mongoose.ObjectId;
   itemId: mongoose.ObjectId;
   price: number;
@@ -12,6 +13,7 @@ export interface ITransaction extends Document {
 }
 
 const TransactionSchema: Schema = new Schema({
+  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation" },
   employeeId: { type: Schema.Types.ObjectId, ref: "EmployeeUser", required: true },
   itemId: { type: Schema.Types.ObjectId, ref: "Item", required: true },
   price: { type: Number, required: true },

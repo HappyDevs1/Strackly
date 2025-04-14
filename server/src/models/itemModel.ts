@@ -1,7 +1,9 @@
 import mongoose, { Document, Schema } from "mongoose";
+import Organisation from "./organisationModel";
 
 export interface IItem extends Document {
   _id: string;
+  organisation: mongoose.ObjectId;
   name: string;
   price: number;
   stockQuantity: number;
@@ -11,6 +13,7 @@ export interface IItem extends Document {
 }
 
 const ItemSchema: Schema = new Schema({
+  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation" },
   name: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
   stockQuantity: { type: Number, required: true, default: 0 },
