@@ -13,7 +13,7 @@ export interface IItem extends Document {
 }
 
 const ItemSchema: Schema = new Schema({
-  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation" },
+  organisation: { type: mongoose.Schema.Types.ObjectId, ref: "Organisation", required: true },
   name: { type: String, required: true, unique: true },
   price: { type: Number, required: true },
   stockQuantity: { type: Number, required: true, default: 0 },
