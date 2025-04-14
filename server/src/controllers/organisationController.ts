@@ -51,7 +51,7 @@ export const findOrganisation = async (req: Request, res: Response): Promise<any
       return res.status(404).json({ message: `No organisation with ID: ${id}` });
     }
 
-    const organisation = await Organisation.findById(id).populate("employees").populate("products").populate("transactions");
+    const organisation = await Organisation.findById(id).populate("employees").populate("products").populate("transaction")
 
     if (!organisation) {
       return res.status(404).json({ message: "Organisation not found" });
