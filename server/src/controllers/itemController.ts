@@ -1,19 +1,21 @@
 import Item from "../models/itemModel";
 import { Request, Response } from "express";
 import { Types } from "mongoose";
+import MasterUser from "../models/masterUserModel";
+import Organisation from "../models/organisationModel";
 
-export const addItem = async (req: Request, res: Response): Promise<any> => {
+export const createItem = async (req: Request, res: Response): Promise<any> => {
   try {
     const { name, price, stockQuantity, picture } = req.body;
-    const { id } = req.params;
+
+    const { orgId, masId } = req.params;
 
     if (!name || !price || !stockQuantity || !picture) {
       return res.status(406).json({ message: "All fields are required" });
     }
 
-    if (!Types.ObjectId.isValid(id)) {
-      res.status(400).json({ message: "Invalid item ID format" });
-      return;
+    if (!orgId && !masId) {
+      return res.status(406).json({ message: "Params ID cannot be empty" });
     }
 
     const existingItem = await Item.findOne({ name });
@@ -22,7 +24,21 @@ export const addItem = async (req: Request, res: Response): Promise<any> => {
       return res.status(409).json({ message: "Item already exists" });
     }
 
-    const newItem = new Item({ userId: id, name, price, stockQuantity, picture });
+    if (!Types.ObjectId.isValid(orgId)) {
+      return res.status(404).json({ message: `No organisation with ID: ${orgId}` });
+    }
+
+    if (!Types.ObjectId.isValid(masId)) {
+      return res.status(404).json({ message: `No master user with ID: ${masId}` });
+    }
+
+    const findMaster = await MasterUser.findById(masId);
+
+    if (!findMaster) {
+      return res.status(405).json({ message: "User not allowed to create item" })
+    }
+
+    const newItem = new Item({ organisation: orgId, name, price, stockQuantity, picture });
 
     await newItem.save();
 
@@ -32,9 +48,19 @@ export const addItem = async (req: Request, res: Response): Promise<any> => {
   }
 }
 
-export const getItems = async (req: Request, res: Response): Promise<any> => {
+export const getAllItems = async (req: Request, res: Response): Promise<any> => {
   try {
-    const items = await Item.find();
+    const { orgId } = req.params;
+
+    if (!orgId) {
+      return res.status(406).json({ message: "Organisation ID cannot be empty" });
+    }
+
+    if (!Types.ObjectId.isValid(orgId)) {
+      return res.status(404).json({ message: `No organisation with ID: ${orgId}` });
+    }
+
+    const items = await Item.find({ orgId }).populate("organisation");
 
     res.status(200).json({ availableItems: items });
   } catch (error) {
@@ -44,14 +70,14 @@ export const getItems = async (req: Request, res: Response): Promise<any> => {
 
 export const getItem = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { id } = req.params;
+    const { itemId } = req.params;
 
-    if (!Types.ObjectId.isValid(id)) {
+    if (!Types.ObjectId.isValid(itemId)) {
       res.status(400).json({ message: "Invalid item ID format" });
       return;
     }
     
-    const item = await Item.findById(id);
+    const item = await Item.findById(itemId).populate("organisation");
     
     if (!item) {
       return res.status(404).json({ message: "Item not found" });
@@ -65,11 +91,11 @@ export const getItem = async (req: Request, res: Response): Promise<any> => {
 
 export const updateItem = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { id } = req.params;
+    const { itemId } = req.params;
     const { additionalStock } = req.body;
 
-    // Check if product ID is y valid
-    if (!Types.ObjectId.isValid(id)) {
+    // Check if product ID is valid
+    if (!Types.ObjectId.isValid(itemId)) {
       res.status(400).json({ message: "Invalid item ID format" });
       return;
     }
@@ -81,10 +107,28 @@ export const updateItem = async (req: Request, res: Response): Promise<any> => {
       return res.status(400).json({ message: "Additional stock must be a positive number" });
     }
 
+    //Check if user is allowed to update item
+    const { masId } = req.params;
+
+    if (!masId && !itemId) {
+      return res.status(406).json({ message: "Params ID cannot be empty" });
+    }
+
+    if (!Types.ObjectId.isValid(masId)) {
+      return res.status(404).json({ message: `No master user with ID: ${masId}` });
+    }
+
+    const foundMaster = await MasterUser.findById(masId);
+
+    if (!foundMaster) {
+      return res.status(405).json({ message: "User not allowed to update item" })
+    }
+
+
     const updateFields = req.body; // Contains dynamic fields to update
 
     const item = await Item.findByIdAndUpdate(
-      id,
+      itemId,
       { $set: updateFields }, // Dynamically updates only the provided fields
       { new: true } // Returns the updated document
     );
@@ -105,14 +149,26 @@ export const updateItem = async (req: Request, res: Response): Promise<any> => {
 
 export const deleteItem = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { id } = req.params;
+    const { itemId, masId } = req.params;
 
-    if (!Types.ObjectId.isValid(id)) {
+    if (!Types.ObjectId.isValid(itemId)) {
       res.status(400).json({ message: "Invalid item ID format" });
       return;
     }
 
-    await Item.findByIdAndDelete(id);
+    if (!Types.ObjectId.isValid(masId)) {
+      res.status(400).json({ message: "Invalid master user ID format" });
+      return;
+    }
+
+    // Check if user is allowed to delete item
+    const foundMaster = await MasterUser.findById(masId);
+    
+    if (!foundMaster) {
+      return res.status(405).json({ message: "User not allowed to delete item" });
+    }
+
+    await Item.findByIdAndDelete(itemId);
 
     res.status(200).json({ message: "Item deleted successfully" });
   } catch (error) {
