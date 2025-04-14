@@ -10,7 +10,7 @@ dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export const createEmployee = async (req: Request, res: Response): Promise<any> => {
+export const createEmployeeUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { username, password } = req.body;
     const { orgId } = req.params;
@@ -62,7 +62,7 @@ export const createEmployee = async (req: Request, res: Response): Promise<any> 
   }
 }
 
-export const loginMasterUser = async (
+export const loginEmployeeUser = async (
   req: Request,
   res: Response
 ): Promise<any> => {
@@ -100,7 +100,7 @@ export const loginMasterUser = async (
   }
 };
 
-export const getMasterUser = async (
+export const getEmployeeUser = async (
   req: Request,
   res: Response
 ): Promise<any> => {
