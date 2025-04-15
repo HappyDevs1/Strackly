@@ -65,7 +65,7 @@ export const getAllItems = async (req: Request, res: Response): Promise<any> => 
       return res.status(404).json({ message: `No organisation with ID: ${orgId}` });
     }
 
-    const items = await Item.find({ orgId }).populate("organisation");
+    const items = await Item.find({ organisation: orgId }).populate("organisation");
 
     res.status(200).json({ availableItems: items });
   } catch (error) {
