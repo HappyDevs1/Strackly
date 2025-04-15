@@ -6,6 +6,7 @@ import userRoutes from "./routes/masterUserRoute";
 import itemRoutes from "./routes/itemRoute";
 import transactionRoutes from "./routes/transactionRoute";
 import organisationRoutes from "./routes/organisationRoute";
+import employeeUserRoutes from "./routes/employeeUserRoute";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/item", itemRoutes);
 app.use("/api/transaction", transactionRoutes);
 app.use("/api/organisation", organisationRoutes);
+app.use("/api/employee", employeeUserRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
