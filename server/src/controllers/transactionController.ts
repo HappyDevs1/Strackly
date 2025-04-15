@@ -7,7 +7,9 @@ import { Types } from "mongoose";
 export const createTransaction = async (req: Request, res: Response) : Promise<any> => {
   try {
     const { quantity } = req.body;
-    const { organisationId, employeeId, itemId } = req.params;
+    const { organisationId } = req.params;
+    const { employeeId } = req.params;
+    const { itemId } = req.params;
 
     if (!quantity) {
       return res.status(406).json({ message: "Quantity is required" });
@@ -17,8 +19,16 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
     }
 
     // Check if IDs are valid
-    if (Types.ObjectId.isValid(organisationId) && Types.ObjectId.isValid(employeeId) && Types.ObjectId.isValid(itemId)) {
-      return res.status(406).json({ message: "Invalid ID format" });
+    if (!Types.ObjectId.isValid(organisationId)) {
+      return res.status(406).json({ message: "Invalid organisation ID format", id: organisationId });
+    }
+
+    if (!Types.ObjectId.isValid(employeeId)) {
+      return res.status(406).json({ message: "Invalid employee ID format" });
+    }
+
+    if (!Types.ObjectId.isValid(itemId)) {
+      return res.status(406).json({ message: "Invalid item ID format" });
     }
 
     //Check if employee is allowed to make transactions
@@ -28,7 +38,7 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
       return res.status(404).json({ message: 'Employee not found' });
     }
 
-    if (employee.organisation.toString() !== organisationId) { // Try JSON.stringify if still not working
+    if (employee.organisation.toString() !== organisationId.toString()) { // Try JSON.stringify if still not working
       return res.status(403).json({ message: 'Employee not allowed to make transactions for this organisation' });
     }
 
