@@ -1,14 +1,14 @@
 import express from "express";
 import { Request, Response } from "express";
-import { addItem, getItem, getItems, updateItem, deleteItem } from "../controllers/itemController";
+import { createItem, getItem, getAllItems, updateItem, deleteItem } from "../controllers/itemController";
 
 const router = express.Router();
 
-router.post("/add/:id", addItem);
-router.get("/items", getItems);
-router.get("/item/:id", getItem);
-router.put("/update/:id", updateItem);
-router.delete("/delete/:id", deleteItem);
+router.post("/create/:orgId/:masId", createItem);
+router.get("/items/:orgId", getAllItems);
+router.get("/item/:itemId", getItem);
+router.put("/update/:itemId/:masId", updateItem);
+router.delete("/delete/:itemId/:masId", deleteItem);
 router.get("/", (req, res) => {
   res.send("Welcome to the item route");
 });
