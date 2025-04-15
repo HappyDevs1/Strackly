@@ -40,6 +40,7 @@ export const createEmployeeUser = async (req: Request, res: Response): Promise<a
       return res.status(404).json({ message: "Organisation not found" });
     } else {
       const newEmployee = new EmployeeUser({
+        organisation: orgId,
         username,
         password: hashedPassword,
       });
