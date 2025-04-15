@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Item from "../models/itemModel";
 import Transaction from "../models/transactionModel";
 import EmployeeUser from "../models/employeeUserModel";
+import Organisation from "../models/organisationModel";
 import { Types } from "mongoose";
 
 export const createTransaction = async (req: Request, res: Response) : Promise<any> => {
@@ -71,6 +72,12 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
     // Update item stock
     item.stockQuantity -= quantity;
     await item.save();
+
+    //increment revenue
+    await Organisation.findByIdAndUpdate(organisationId, {
+      $inc: { revenue: totalAmount },
+      $set: { updatedAt: new Date() },
+    });
 
     res.status(201).json(transaction);
   } catch (error) {
