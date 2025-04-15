@@ -40,6 +40,11 @@ export const createItem = async (req: Request, res: Response): Promise<any> => {
 
     const newItem = new Item({ organisation: orgId, name, price, stockQuantity, picture });
 
+    await Organisation.findByIdAndUpdate(orgId, {
+      $push: { products: newItem._id },
+      $set: { updatedAt: new Date() },
+    });
+
     await newItem.save();
 
     res.status(201).json({ message: "New item created successfully", item: newItem });
@@ -163,7 +168,7 @@ export const deleteItem = async (req: Request, res: Response): Promise<any> => {
 
     // Check if user is allowed to delete item
     const foundMaster = await MasterUser.findById(masId);
-    
+
     if (!foundMaster) {
       return res.status(405).json({ message: "User not allowed to delete item" });
     }
