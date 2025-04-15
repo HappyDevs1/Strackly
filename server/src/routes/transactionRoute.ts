@@ -4,8 +4,8 @@ import { createTransaction, getTransactions } from "../controllers/transactionCo
 
 const router = express.Router();
 
-router.post("/create/:id", createTransaction);
-router.get("/transactions", getTransactions);
+router.post("/create/:organisationId/:employeeId/:itemId", createTransaction);
+router.get("/transactions/:organisationId", getTransactions);
 router.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the transaction route");
 });
