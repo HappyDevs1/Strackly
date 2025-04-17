@@ -1,6 +1,7 @@
 import axios from "axios";
+import { IP_ADDRESS } from "../utils/config";
 
-const API_BASE_URL = "http://localhost:3000/api/user/master";
+const API_BASE_URL = `http://${IP_ADDRESS}:3000/api/user/master`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,

@@ -4,6 +4,7 @@ import { styled } from "nativewind";
 import Header from "../components/Header";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { registerMasterUser } from "../services/masterUser";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -13,6 +14,22 @@ const RegisterUser = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  const registerMasterUserHandler = async () => {
+    try {
+      const response = await registerMasterUser({
+        name,
+        email,
+        phone,
+        password,
+      });
+      console.log("Master user registered successfully:", response.data);
+      // Navigate to the Login screen after successful registration
+      navigation.navigate("LoginUser");
+    } catch (error) {
+      console.error("Error registering master user:", error);
+    }
+  }
 
   return (
     <StyledView className="flex-1 bg-gray-100 justify-center px-6">
@@ -51,7 +68,7 @@ const RegisterUser = ({ navigation }: any) => {
         />
         <Button
           title="Register"
-          onPress={() => console.log("Register")}
+          onPress={() => registerMasterUserHandler()}
           style="mt-4"
         />
       </StyledView>
