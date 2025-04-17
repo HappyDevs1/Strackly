@@ -12,7 +12,7 @@ import Products from "../screens/Products";
 import Analytics from "../screens/Analytics";
 import Notifications from "../screens/Notifications";
 import Welcome from "../screens/Welcome";
-import RegisterUser from "../screens/RegisterUser";
+import RegisterMasterUser from "../screens/RegisterMasterUser";
 import LoginUser from "../screens/LoginUser";
 import BarcodeScanner from "../screens/BarcodeScanner";
 import UpdateStock from "../screens/UpdateStock";
@@ -104,7 +104,7 @@ export default function AppNavigator() {
         />
         <Stack.Screen
           name="RegisterUser"
-          component={RegisterUser}
+          component={RegisterMasterUser}
           options={{ headerShown: false }}
         />
         <Stack.Screen

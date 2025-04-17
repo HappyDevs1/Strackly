@@ -54,7 +54,7 @@ const LoginUser = ({ navigation }: any) => {
         <StyledText className="text-gray-500 mb-1">
           Don't have an account yet?
         </StyledText>
-        <TouchableOpacity onPress={() => navigation.navigate("RegisterUser")}>
+        <TouchableOpacity onPress={() => navigation.navigate("RegisterMasterUser")}>
           <StyledText className="text-blue-500 font-semibold">Register</StyledText>
         </TouchableOpacity>
       </StyledView>

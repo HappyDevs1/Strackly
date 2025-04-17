@@ -9,10 +9,10 @@ const StyledView = styled(View);
 const StyledText = styled(Text);
 
 const RegisterUser = ({ navigation }: any) => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <StyledView className="flex-1 bg-gray-100 justify-center px-6">
@@ -25,10 +25,10 @@ const RegisterUser = ({ navigation }: any) => {
       {/* Form Section */}
       <StyledView className="bg-white p-6 rounded-lg shadow-md mt-6">
         <Input
-          label="Username"
-          placeholder="Enter your username"
-          value={username}
-          onChangeText={setUsername}
+          label="Name"
+          placeholder="Enter your name"
+          value={name}
+          onChangeText={setName}
         />
         <Input
           label="Email"
@@ -37,18 +37,17 @@ const RegisterUser = ({ navigation }: any) => {
           onChangeText={setEmail}
         />
         <Input
+          label="Phone Number"
+          placeholder="Enter your phone number"
+          value={phone}
+          onChangeText={setPhone}
+        />
+        <Input
           label="Password"
           placeholder="Enter your password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry // Hides the password input
-        />
-        <Input
-          label="Confirm Password"
-          placeholder="Confirm your password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry // Hides the confirm password input
         />
         <Button
           title="Register"
