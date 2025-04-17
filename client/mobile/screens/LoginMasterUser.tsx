@@ -4,6 +4,7 @@ import { styled } from 'nativewind';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { loginMasterUser } from '../services/masterUser';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -12,13 +13,12 @@ const LoginMasterUser = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    if (email && password) {
-      console.log("User logged in successfully");
-
-      // Navigate to the Main screen (BottomTabs)
-      navigation.navigate("Main"); // Direct navigation to Main screen
-    } else {
+  const handleLogin = async () => {
+    try {
+      const response = await loginMasterUser({ email, password });
+      console.log("Master user logged in successfully: ", response.data);
+      navigation.navigate("Main")
+      } catch (error) {
       console.log("Please enter valid credentials");
     }
   };
@@ -27,7 +27,7 @@ const LoginMasterUser = ({ navigation }: any) => {
     <StyledView className="flex-1 bg-gray-100 justify-center px-6">
       {/* Header Section */}
       <Header
-        title="Login to access your account."
+        title="Login to a master user account."
         subtitle="Effortlessly login, access your account, and enjoy seamless convenience."
       />
 
