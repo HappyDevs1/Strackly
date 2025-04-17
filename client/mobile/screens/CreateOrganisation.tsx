@@ -85,7 +85,7 @@ const CreateOrganisation = ({ navigation }: any) => {
         </StyledText>
         <TouchableOpacity onPress={() => console.log("Navigate to Login")}>
           <StyledText
-            onPress={() => navigation.navigate("LoginUser")}
+            onPress={() => navigation.navigate("LoginMasterUser")}
             className="text-blue-500 font-semibold"
           >
             Login

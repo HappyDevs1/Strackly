@@ -8,7 +8,7 @@ import Button from '../components/Button';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const LoginUser = ({ navigation }: any) => {
+const LoginMasterUser = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -62,4 +62,4 @@ const LoginUser = ({ navigation }: any) => {
   );
 };
 
-export default LoginUser;
+export default LoginMasterUser;
