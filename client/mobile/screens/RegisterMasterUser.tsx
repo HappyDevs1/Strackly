@@ -23,11 +23,14 @@ const RegisterUser = ({ navigation }: any) => {
         phone,
         password,
       });
-      const masterUserId = response.data?.masterUser?._id;
-      console.log("Master user registered successfully:", masterUserId);
+      const masId = response.data?.masterUser?._id;
+      console.log("Master user registered successfully:", masId);
       // Navigate to the Login screen after successful registration
-      navigation.navigate("CreateOrganisation", {
-        masId: masterUserId})
+      if (masId) {
+        navigation.navigate("CreateOrganisation", { masId });
+      } else {
+        console.warn("Master User ID is undefined")
+      }
     } catch (error) {
       console.error("Error registering master user:", error);
     }
