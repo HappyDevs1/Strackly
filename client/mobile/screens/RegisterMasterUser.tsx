@@ -25,7 +25,8 @@ const RegisterUser = ({ navigation }: any) => {
       });
       console.log("Master user registered successfully:", response.data);
       // Navigate to the Login screen after successful registration
-      navigation.navigate("LoginUser");
+      navigation.navigate("CreateOrganisation", {
+        masterUserId: response.data._id })
     } catch (error) {
       console.error("Error registering master user:", error);
     }
