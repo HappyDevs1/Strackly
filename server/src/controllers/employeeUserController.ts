@@ -5,6 +5,7 @@ import Organisation from "../models/organisationModel";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { Types } from "mongoose";
 
 dotenv.config();
 
@@ -123,3 +124,43 @@ export const getEmployeeUser = async (
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+
+export const updateEmployeeUser = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { empId } = req.params;
+  
+    if (!empId) {
+      return res.status(406).json({ message: "ID cannot be empty" });
+    }
+
+    if (!Types.ObjectId.isValid(empId)) {
+          return res.status(404).json({ message: `No master user with ID: ${empId}` });
+        }
+    
+    const updateFields = req.body;
+    
+    if (!updateFields) {
+      return res.status(406).json({ message: "Fields cannot be empty" });
+    }
+
+    const updatedEmployee = await EmployeeUser.findByIdAndUpdate(
+      empId,
+      { $set: updateFields },
+      { new: true }
+    );
+
+    if (!updatedEmployee) {
+      return res.status(404).json({ message: "Employee user not found" });
+    }
+
+    res.status(200).json({
+      message: "Employee user updated successfully",
+      updatedEmployeeUser: updatedEmployee,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
