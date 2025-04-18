@@ -8,7 +8,7 @@ const StyledView = styled(View);
 const StyledText = styled(Text);
 const StyledTouchableOpacity = styled(TouchableOpacity); // Wrap TouchableOpacity
 
-const Home = () => {
+const Home = ( { navigation }: any) => {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -89,9 +89,9 @@ const Home = () => {
           <StyledText className="text-lg font-bold mb-4 text-blue-500">Quick Actions</StyledText>
           <StyledView className="flex flex-row justify-around">
             {/* Add Task Button */}
-            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center">
+            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("RegisterEmployeeUser")}>
               <Icon name="add-circle-outline" size={28} color="white" />
-              <StyledText className="text-white mt-2">Add Task</StyledText>
+              <StyledText className="text-white mt-2">Employee</StyledText>
             </StyledTouchableOpacity>
 
             {/* View Calendar Button */}

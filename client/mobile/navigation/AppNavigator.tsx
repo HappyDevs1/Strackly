@@ -17,6 +17,7 @@ import LoginMasterUser from "../screens/LoginMasterUser";
 import BarcodeScanner from "../screens/BarcodeScanner";
 import UpdateStock from "../screens/UpdateStock";
 import CreateOrganisation from "../screens/CreateOrganisation";
+import RegisterEmployeeUser from "../screens/RegisterEmployeeUser";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -106,6 +107,11 @@ export default function AppNavigator() {
         <Stack.Screen
           name="RegisterUser"
           component={RegisterMasterUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RegisterEmployeeUser"
+          component={RegisterEmployeeUser}
           options={{ headerShown: false }}
         />
         <Stack.Screen
