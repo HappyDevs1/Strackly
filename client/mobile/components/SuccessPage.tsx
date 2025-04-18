@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 interface SuccessPageProps {
   title: string;
@@ -10,6 +11,9 @@ interface SuccessPageProps {
 const SuccessPage: React.FC<SuccessPageProps> = ({ title, message, children }) => {
   return (
     <View style={styles.container}>
+      <View style={styles.iconCircle}>
+        <FontAwesome name="check" size={32} color="white" />
+      </View>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.message}>{message}</Text>
       {children && <View style={styles.extra}>{children}</View>}
@@ -24,6 +28,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+  },
+  iconCircle: {
+    backgroundColor: '#28a745',
+    borderRadius: 50,
+    padding: 20,
+    marginBottom: 20,
   },
   title: {
     fontSize: 28,
