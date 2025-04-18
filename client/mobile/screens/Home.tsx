@@ -1,13 +1,45 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 const StyledTouchableOpacity = styled(TouchableOpacity); // Wrap TouchableOpacity
 
 const Home = () => {
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const getUserData = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const parsedUserData = JSON.parse(userData);
+        setUserData(parsedUserData);
+        console.log("User data:", parsedUserData);
+        setLoading(false);
+      } else {
+        console.log("No user data found in AsyncStorage.");
+      }
+    } catch (error) {
+      console.error("Error retrieving user data:", error);
+    }
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  if (loading) {
+    return (
+      <StyledView className="flex-1 justify-center items-center bg-gray-100">
+        <StyledText className="text-lg font-semibold">Loading...</StyledText>
+      </StyledView>
+    );
+  }
+
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
@@ -22,7 +54,7 @@ const Home = () => {
           {/* User Greeting */}
           <StyledView className="flex flex-col">
             <StyledText className="text-lg font-semibold text-white">Hello,</StyledText>
-            <StyledText className="text-xl font-bold text-white">Happy Mahlangu</StyledText>
+            <StyledText className="text-xl font-bold text-white">{userData.name}</StyledText>
           </StyledView>
         </StyledView>
 
