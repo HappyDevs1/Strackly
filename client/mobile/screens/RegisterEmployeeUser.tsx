@@ -35,11 +35,18 @@ const RegisterEmployeeUser = ({ navigation }: any) => {
 
   const registerEmployeeUserHandler = async () => {
     try {
-      registerEmployeeUser({
+      const response = await registerEmployeeUser({
         username,
         password,
       }, organisationId)
-      navigation.navigate("RegisterEmployeeSuccess");
+
+      const employeeId = response.data?.employee?._id;
+      
+      if (employeeId) {
+        console.log("Employee user registered successfully:", employeeId);
+        // Navigate to the Success screen after successful registration
+        navigation.navigate("RegisterEmployeeSuccess", { employeeId });
+      }
     } catch (error) {
       console.error("Error registering employee user:", error);
     }
