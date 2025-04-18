@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Organisation from "../models/organisationModel";
+import MasterUser from "../models/masterUserModel";
 import mongoose from "mongoose";
 
 export const createOrganisation = async (req: Request, res: Response): Promise<any> => {
@@ -29,6 +30,9 @@ export const createOrganisation = async (req: Request, res: Response): Promise<a
       organisationEmail,
       masterUser: masId,
     });
+
+    //Update the master user with the new organisation ID
+    await MasterUser.findByIdAndUpdate(masId, { $push: { organisation: newOrganisation._id } });
 
     await newOrganisation.save();
 
