@@ -14,7 +14,7 @@ export const registerEmployeeUser = async (userData: any, orgId: string) => {
   try {
     const response = await api.post(`/create/${orgId}`, userData);
     console.log("Employee user created successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error creating employee user:", error);
     throw error;
@@ -25,7 +25,7 @@ export const loginEmployeeUser = async (credentials: any) => {
   try {
     const response = await api.post(`/login`, credentials);
     console.log("Employee user logged in successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error logging in employee user:", error);
     throw error;
@@ -39,9 +39,20 @@ export const getEmployeeUser = async (userId: string) => {
     if (response.status !== 200) {
       throw new Error(`Error fetching employee user: ${response.statusText}`);
     }
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error fetching employee user:", error);
+    throw error;
+  }
+}
+
+export const updateEmployeeUser = async (userData: any, userId: string) => {
+  try {
+    const response = await api.put(`/update/${userId}`, userData);
+    console.log("Employee user updated successfully:", response.data);
+    return response;
+  } catch (error) {
+    console.error("Error updating employee user:", error);
     throw error;
   }
 }
