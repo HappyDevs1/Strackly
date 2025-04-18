@@ -45,7 +45,7 @@ const RegisterEmployeeUser = ({ navigation }: any) => {
       if (employeeId) {
         console.log("Employee user registered successfully:", employeeId);
         // Navigate to the Success screen after successful registration
-        navigation.navigate("RegisterEmployeeSuccess", { employeeId });
+        navigation.navigate("RegisterEmployeeSuccess", { empId: employeeId });
       }
     } catch (error) {
       console.error("Error registering employee user:", error);

@@ -11,7 +11,7 @@ import { updateEmployeeUser } from '../services/employeeUser';
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const SuccessScreen = () => {
+const SuccessScreen = ({ navigation }: any) => {
   const [allowedToSell, setAllowedToSell] = useState(false);
 
   const router = useRoute();
@@ -28,7 +28,7 @@ const SuccessScreen = () => {
         updateEmployeeUser({
           allowedToSell: true }, empId)
     }
-    console.log("State of allowedToSell:", router.params);
+    navigation.navigate("Main")
   } catch (error) {
     console.error("Error handling employee permission:", error);
   }
