@@ -13,7 +13,7 @@ const api = axios.create({
 export const registerMasterUser = async (userData: any) => {
   try {
     const response = await api.post("/register", userData);
-    console.log("Service response: Master user registered successfully:", response);
+    console.log("Service response: Master user registered successfully:", response.data);
     return response;
   } catch (error) {
     console.error("Error registering master user:", error);
@@ -24,7 +24,7 @@ export const registerMasterUser = async (userData: any) => {
 export const loginMasterUser = async (credentials: any) => {
   try {
     const response = await api.post("/login", credentials);
-    console.log("Master user logged in successfully:", response);
+    console.log("Service response: Master user logged in successfully:", response);
     return response;
   } catch (error) {
     console.error("Error logging in master user:", error);
