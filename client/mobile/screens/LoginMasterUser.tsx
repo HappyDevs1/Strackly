@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { loginMasterUser } from '../services/masterUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { all } from 'axios';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -18,9 +19,17 @@ const LoginMasterUser = ({ navigation }: any) => {
     try {
       const response = await loginMasterUser({ email, password });
 
-      if (response.data?.loggedInMasterUser?._id) {
-        await AsyncStorage.setItem("userId", response.data?.loggedInMasterUser?._id);
-        console.log("Master user logged in successfully:", response.data?.loggedInMasterUser);
+      if (response.data?.loggedInMasterUser) {
+        // Store useful user data in AsyncStorage
+        await AsyncStorage.setItem("user", JSON.stringify({
+          id: response.data.loggedInMasterUser._id,
+          name: response.data.loggedInMasterUser.name,
+          email: response.data.loggedInMasterUser.email,
+          phone: response.data.loggedInMasterUser.phone,
+          allowedToSell: response.data.loggedInMasterUser.allowedToSell,
+          organisationId: response.data.loggedInMasterUser.organisation,
+          token: response.data.loginToken,
+        }))
         navigation.navigate("Main");
       } else {
         console.warn("Master User ID is undefined")
