@@ -12,6 +12,14 @@ const Home = () => {
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  let date = new Date();
+  let today = date.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   const getUserData = async () => {
     try {
       const userData = await AsyncStorage.getItem("user");
@@ -61,7 +69,7 @@ const Home = () => {
         {/* Calendar Row */}
         <StyledView className="flex flex-row items-center w-full px-4 py-3 rounded-xl bg-white shadow-md">
           <Icon name="calendar-number" size={21} color="tomato" />
-          <StyledText className="ml-2 font-semibold text-black">07 January 2025</StyledText>
+          <StyledText className="ml-2 font-semibold text-black">{today}</StyledText>
         </StyledView>
       </StyledView>
 
