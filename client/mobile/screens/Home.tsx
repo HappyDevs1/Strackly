@@ -101,7 +101,7 @@ const Home = ( { navigation }: any) => {
             </StyledTouchableOpacity>
 
             {/* Settings Button */}
-            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center">
+            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("SettingsScreen")}>
               <Icon name="settings-outline" size={28} color="white" />
               <StyledText className="text-white mt-2">Settings</StyledText>
             </StyledTouchableOpacity>
