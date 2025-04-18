@@ -18,6 +18,7 @@ import BarcodeScanner from "../screens/BarcodeScanner";
 import UpdateStock from "../screens/UpdateStock";
 import CreateOrganisation from "../screens/CreateOrganisation";
 import RegisterEmployeeUser from "../screens/RegisterEmployeeUser";
+import RegisterEmployeeSuccess from "../screens/RegisterEmployeeSuccess";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -112,6 +113,11 @@ export default function AppNavigator() {
         <Stack.Screen
           name="RegisterEmployeeUser"
           component={RegisterEmployeeUser}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="RegisterEmployeeSuccess"
+          component={RegisterEmployeeSuccess}
           options={{ headerShown: false }}
         />
         <Stack.Screen

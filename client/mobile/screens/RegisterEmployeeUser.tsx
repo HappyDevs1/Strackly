@@ -10,7 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const RegisterEmployeeUser = () => {
+const RegisterEmployeeUser = ({ navigation }: any) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [organisationId, setOrganisationId] = useState<any>(null);
@@ -39,6 +39,7 @@ const RegisterEmployeeUser = () => {
         username,
         password,
       }, organisationId)
+      navigation.navigate("RegisterEmployeeSuccess");
     } catch (error) {
       console.error("Error registering employee user:", error);
     }
