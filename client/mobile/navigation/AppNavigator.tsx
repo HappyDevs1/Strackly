@@ -19,6 +19,7 @@ import UpdateStock from "../screens/UpdateStock";
 import CreateOrganisation from "../screens/CreateOrganisation";
 import RegisterEmployeeUser from "../screens/RegisterEmployeeUser";
 import RegisterEmployeeSuccess from "../screens/RegisterEmployeeSuccess";
+import SettingsScreen from "../screens/SettingsScreen";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -131,8 +132,8 @@ export default function AppNavigator() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CreateOrganisation"
-          component={CreateOrganisation}
+          name="SettingsScreen"
+          component={SettingsScreen}
           options={{ headerShown: false }}
         />
         {/* Main App (Bottom Tabs) */}
