@@ -14,7 +14,7 @@ export const createItem = async (itemData: any, orgId: string, masId: any) => {
   try {
     const response = await api.post(`/create/${orgId}/${masId}`, itemData);
     console.log("Item created successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error creating item:", error);
     throw error;
@@ -28,7 +28,7 @@ export const getAllItems = async (orgId: string) => {
     if (response.status !== 200) {
       throw new Error(`Error fetching items: ${response.statusText}`);
     }
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error fetching items:", error);
     throw error;
@@ -42,7 +42,7 @@ export const getItem = async (itemId: string) => {
     if (response.status !== 200) {
       throw new Error(`Error fetching item: ${response.statusText}`);
     }
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error fetching item:", error);
     throw error;
@@ -53,7 +53,7 @@ export const updateItem = async (itemId: string, itemData: any, masId: string) =
   try {
     const response = await api.put(`/update/${itemId}/${masId}`, itemData);
     console.log("Item updated successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error updating item:", error);
     throw error;
@@ -64,7 +64,7 @@ export const deleteItem = async (itemId: string, masId: string) => {
   try {
     const response = await api.delete(`/delete/${itemId}/${masId}`);
     console.log("Item deleted successfully:", response.data);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Error deleting item:", error);
     throw error;
