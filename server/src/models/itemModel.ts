@@ -7,7 +7,8 @@ export interface IItem extends Document {
   name: string;
   price: number;
   stockQuantity: number;
-  picture: string
+  picture: string;
+  barcode: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,6 +19,7 @@ const ItemSchema: Schema = new Schema({
   price: { type: Number, required: true },
   stockQuantity: { type: Number, required: true, default: 0 },
   picture: { type: String, required: true },
+  barcode: { type: String, default: "0"},
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
 });
