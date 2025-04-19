@@ -88,14 +88,14 @@ const Home = ( { navigation }: any) => {
         <StyledView className="bg-white rounded-xl shadow-lg p-4">
           <StyledText className="text-lg font-bold mb-4 text-blue-500">Quick Actions</StyledText>
           <StyledView className="flex flex-row justify-around">
-            {/* Add Task Button */}
+            {/* Add Employee Button */}
             <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("RegisterEmployeeUser")}>
               <Icon name="add-circle-outline" size={28} color="white" />
               <StyledText className="text-white mt-2">Employee</StyledText>
             </StyledTouchableOpacity>
 
-            {/* View Calendar Button */}
-            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("Products")}>
+            {/* Add Product Button */}
+            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("NewProduct")}>
               <Icon name="add-circle-outline" size={28} color="white" />
               <StyledText className="text-white mt-2">Products</StyledText>
             </StyledTouchableOpacity>
