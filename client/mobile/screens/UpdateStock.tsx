@@ -1,9 +1,12 @@
 import { View, Text, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from '../types/types';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/Ionicons';
-import axios from 'axios';
+import { updateItem } from '../services/item';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Input from '../components/Input';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -12,32 +15,51 @@ const StyledTouchableOpacity = styled(TouchableOpacity);
 const StyledImage = styled(Image);
 
 const UpdateStock = ({ route }: any) => {
-  const [quantity, setQuantity] = useState("");
-  const { item } = route.params;
-  const navigation = useNavigation();
+  const [quantity, setQuantity] = useState<any>("");
+  const [masterId, setMasterId] = useState<any>(null);
 
-  const handleUpdateStock = async () => {
+  const { item } = route.params;
+  const itemId = item._id;
+
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const getMasterId = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const parsedUserData = JSON.parse(userData);
+        console.log("Parsed master ID:", parsedUserData.id)
+        setMasterId(parsedUserData.id);
+        return parsedUserData.masId
+      } else {
+        console.log("No user data found in AsyncStorage.")
+        return null;
+      }
+    } catch (error) {
+      console.error("Failed to fetch master ID:", error)
+    }
+  }
+
+  const updateStockHandler = async () => {
     if (!quantity || isNaN(Number(quantity))) {
       Alert.alert('Invalid Input', 'Please enter a valid quantity.');
       return;
     }
     try {
-      const endpoint = `http://192.168.18.12:3000/api/item/update/${item._id}`;
-      axios.put(endpoint, { additionalStock: Number(quantity) })
-        .then((response) => {
-          console.log('Stock updated successfully:', response.data);
-          Alert.alert('Success', 'Stock updated successfully!');
-          navigation.goBack();
-        })
-        .catch((error) => {
-          console.error('Error response:', error.response?.data || error.message);
-          Alert.alert('Error', 'An error occurred while updating stock.');
-        });
+      const response = await updateItem({ additionalStock: Number(quantity) }, itemId, masterId)
+      console.log("Product quantity updated successfully:", response)
+      navigation.navigate("UpdateStockSuccess")
     } catch (error) {
       console.error('Unexpected error:', error);
-      Alert.alert('Error', 'An error occurred while updating stock.');
     }
   };
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      await getMasterId();
+    }
+    fetchUserId();
+  }, [])
   
 
   return (
@@ -84,20 +106,18 @@ const UpdateStock = ({ route }: any) => {
 
         {/* Quantity Input */}
         <StyledView className="bg-white rounded-xl shadow-md p-4">
-          <StyledText className="text-sm font-medium text-gray-700 mb-2">Quantity to Add</StyledText>
-          <StyledTextInput
-            className="border border-gray-300 rounded-lg px-4 py-2 text-gray-700"
-            placeholder="Enter quantity"
-            keyboardType="numeric"
-            value={quantity}
-            onChangeText={(text) => setQuantity(text)}
-          />
+          <Input
+          label="Quantity"
+          placeholder="Add quantity"
+          value={quantity}
+          onChangeText={setQuantity}
+        />
         </StyledView>
 
         {/* Update Button */}
         <StyledTouchableOpacity
           className="mt-6 bg-blue-500 p-4 rounded-xl shadow-md flex items-center"
-          onPress={handleUpdateStock}
+          onPress={updateStockHandler}
         >
           <StyledText className="text-white font-bold text-lg">Update Stock</StyledText>
         </StyledTouchableOpacity>
