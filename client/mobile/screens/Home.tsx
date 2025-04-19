@@ -95,9 +95,9 @@ const Home = ( { navigation }: any) => {
             </StyledTouchableOpacity>
 
             {/* View Calendar Button */}
-            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center">
-              <Icon name="calendar-outline" size={28} color="white" />
-              <StyledText className="text-white mt-2">Calendar</StyledText>
+            <StyledTouchableOpacity className="bg-blue-500 p-3 rounded-xl shadow-md flex items-center" onPress={() => navigation.navigate("Products")}>
+              <Icon name="add-circle-outline" size={28} color="white" />
+              <StyledText className="text-white mt-2">Products</StyledText>
             </StyledTouchableOpacity>
 
             {/* Settings Button */}
