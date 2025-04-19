@@ -8,6 +8,7 @@ export interface ITransaction extends Document {
   price: number;
   quantity: number;
   totalAmount: number;
+  paymentType: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ const TransactionSchema: Schema = new Schema({
   price: { type: Number, required: true },
   quantity: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
+  paymentType: { type: String, required: true, enum: ["cash", "card"]},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

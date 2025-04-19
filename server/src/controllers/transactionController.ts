@@ -7,13 +7,13 @@ import { Types } from "mongoose";
 
 export const createTransaction = async (req: Request, res: Response) : Promise<any> => {
   try {
-    const { quantity } = req.body;
+    const { quantity, paymentType } = req.body;
     const { organisationId } = req.params;
     const { employeeId } = req.params;
     const { itemId } = req.params;
 
-    if (!quantity) {
-      return res.status(406).json({ message: "Quantity is required" });
+    if (!quantity || !paymentType) {
+      return res.status(406).json({ message: "All fields are required" });
     }
     if (!organisationId || !employeeId || !itemId) {
       return res.status(406).json({ message: "Organisation ID, Employee ID and Item ID cannot be empty" });
@@ -66,6 +66,7 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
       price: item.price,
       quantity,
       totalAmount,
+      paymentType
     });
     await transaction.save();
 
