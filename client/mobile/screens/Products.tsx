@@ -5,6 +5,8 @@ import Header from "../components/Header";
 import Icon from "react-native-vector-icons/Ionicons";
 import axios from "axios";
 import { FlatList } from "react-native-gesture-handler";
+import { getAllItems } from "../services/item";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -58,22 +60,51 @@ interface Product {
 
 const Products = ({ navigation }: any) => {
   const [product, setProduct] = useState<Product[]>([]);
-  const endpoint = "http://192.168.18.12:3000/api/item/items";
+  const [orgId, setOrgId] = useState<any>(null);
 
-  const fetchProduct = async () => {
+  const getOrganisationId = async () => {
     try {
-      const items: any = await axios.get(endpoint);
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const parsedUserData = JSON.parse(userData);
+        setOrgId(parsedUserData.organisationId);
+        console.log("Parsed organisation ID:", parsedUserData.organisationId);
+        return parsedUserData.organisationId;
+      } else {
+        console.log("No user data found in AsyncStorage.");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error retrieving organisation ID:", error);
+      return null;
+    }
+  }
 
-      setProduct(items.data.availableItems);
-      console.log(items.data.availableItems);
+  const fetchProductData = async () => {
+    try {
+      const response = await getAllItems(orgId);
+      if (response.data && response.data.foundItems) {
+        setProduct(response.data.foundItems);
+        console.log("Fetched products:", response.data.foundItems);
+      }
     } catch (error) {
       console.error("Failed to fetch product", error);
     }
   };
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    const fetchOrgId = async () => {
+      getOrganisationId()
+    }
+    fetchOrgId();
+  }, [])
+
+  useEffect(() => {
+    if (orgId) {
+      fetchProductData();
+    }
+  }, [orgId])
+  
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
@@ -94,7 +125,7 @@ const Products = ({ navigation }: any) => {
             icon="add"
             marginRight={12}
           />
-          <Button title="Filter" onPress={fetchProduct} icon="filter" />
+          <Button title="Filter" onPress={fetchProductData} icon="filter" />
         </StyledView>
       </StyledView>
 
