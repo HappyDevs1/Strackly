@@ -4,6 +4,7 @@ import Transaction from "../models/transactionModel";
 import EmployeeUser from "../models/employeeUserModel";
 import Organisation from "../models/organisationModel";
 import { Types } from "mongoose";
+import mongoose from "mongoose";
 
 export const createTransaction = async (req: Request, res: Response) : Promise<any> => {
   try {
@@ -97,3 +98,18 @@ export const getTransactions = async (req: Request, res: Response): Promise<any>
     res.status(500).json({ message: "Internal server error", error });
   }
 }
+
+export const getTransactionByType = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { organisationId, paymentType } = req.params;
+
+    const transactions = await Transaction.find({
+      organisation: new mongoose.Types.ObjectId(organisationId),
+      paymentType: new RegExp(`^${paymentType}$`, "i") // make it case-insensitive
+    });
+
+    res.status(200).json({ transactions });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+};
