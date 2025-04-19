@@ -121,7 +121,7 @@ const Products = ({ navigation }: any) => {
           {/* Buttons with Icons */}
           <Button
             title="Add Product"
-            onPress={() => navigation.navigate("UpdateStock")}
+            onPress={() => navigation.navigate("NewProduct")}
             icon="add"
             marginRight={12}
           />
