@@ -83,9 +83,9 @@ const Products = ({ navigation }: any) => {
   const fetchProductData = async () => {
     try {
       const response = await getAllItems(orgId);
-      if (response.data && response.data.foundItems) {
-        setProduct(response.data.foundItems);
-        console.log("Fetched products:", response.data.foundItems);
+      if (response.data && response.data.availableItems) {
+        setProduct(response.data.availableItems);
+        console.log("Fetched products:", response.data);
       }
     } catch (error) {
       console.error("Failed to fetch product", error);
@@ -104,7 +104,7 @@ const Products = ({ navigation }: any) => {
       fetchProductData();
     }
   }, [orgId])
-  
+
   return (
     <StyledView className="flex-1 bg-gray-100">
       {/* Header Section */}
