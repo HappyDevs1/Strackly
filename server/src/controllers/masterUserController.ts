@@ -34,12 +34,6 @@ export const registerMasterUser = async (
       return res.status(409).json({ message: "User already exists" });
     }
 
-    const existingMasterUser = await MasterUser.find();
-
-    if (existingMasterUser.length >= 1) {
-      return res.status(409).json({ message: "Cannot have more than one master user" });
-    }
-
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const newMasterUser = new MasterUser({
