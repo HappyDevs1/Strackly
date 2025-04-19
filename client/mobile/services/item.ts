@@ -49,7 +49,7 @@ export const getItem = async (itemId: string) => {
   }
 }
 
-export const updateItem = async (itemId: string, itemData: any, masId: string) => {
+export const updateItem = async (itemData: any, itemId: string, masId: string) => {
   try {
     const response = await api.put(`/update/${itemId}/${masId}`, itemData);
     console.log("Item updated successfully:", response.data);
