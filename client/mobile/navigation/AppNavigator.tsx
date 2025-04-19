@@ -22,6 +22,7 @@ import RegisterEmployeeSuccess from "../screens/RegisterEmployeeSuccess";
 import SettingsScreen from "../screens/SettingsScreen";
 import NewProduct from "../screens/NewProduct";
 import NewProductSuccess from "../screens/NewProductSuccess";
+import UpdateStockSuccess from "../screens/UpdateStockSuccess";
 
 // Styled components using NativeWind
 const StyledText = styled(Text);
@@ -131,6 +132,11 @@ export default function AppNavigator() {
         <Stack.Screen
           name="UpdateStock"
           component={UpdateStock}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UpdateStockSuccess"
+          component={UpdateStockSuccess}
           options={{ headerShown: false }}
         />
         <Stack.Screen
