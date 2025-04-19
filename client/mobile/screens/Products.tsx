@@ -114,7 +114,7 @@ const Products = ({ navigation }: any) => {
             Products
           </StyledText>
           <StyledText className="text-gray-200 text-sm mt-1">
-            Monitor your store's financial health
+            Monitor your store's inventory level
           </StyledText>
         </StyledView>
         <StyledView className="flex flex-row justify-end mt-3 px-4">
