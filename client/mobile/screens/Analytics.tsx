@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { LineChart } from 'react-native-chart-kit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dimensions } from 'react-native';
-import { getTransactionByType } from '../services/transaction';
 import { getOrganisation } from '../services/organisation';
 
 const StyledView = styled(View);
@@ -36,17 +35,19 @@ const AnalyticsScreen = () => {
     }
   }
 
-  const getCashAmount = async () => {
+  const getOrganisationData = async () => {
     try {
-      const response = await getTransactionByType({ paymentType: "cash" }, orgId)
+      const response = await getOrganisation(orgId);
 
-      const balance = response?.data?.transactions;
+      console.log("Fetched organisation data:", response?.data)
 
-      console.log("Cash transactions", response.data.transactions)
+      const cash = response?.data?.foundOrganisation?.cashTotal;
+      const card = response?.data?.foundOrganisation?.cardTotal;
 
-      setCashBalance(balance)
+      setCashBalance(cash)
+      setCardBalance(card)
     } catch (error) {
-      console.error("Failed to get cash amount:", error)
+      console.error("Error retrieving organisation data:", error)
     }
   }
 
@@ -59,9 +60,9 @@ const AnalyticsScreen = () => {
 
   useEffect(() => {
     if (orgId) {
-      getCashAmount();
+      getOrganisationData();
     }
-  }, [])
+  }, [orgId]);
 
   return (
     <StyledView className="flex-1 bg-gray-50">
@@ -92,7 +93,7 @@ const AnalyticsScreen = () => {
             <Icon name="card-outline" size={32} color="blue" />
             <StyledView className="ml-4">
               <StyledText className="text-sm text-gray-500">Expected Card Payments</StyledText>
-              <StyledText className="text-lg font-bold text-gray-800">R3,500</StyledText>
+              <StyledText className="text-lg font-bold text-gray-800">{`R${cardBalance}`}</StyledText>
             </StyledView>
           </StyledView>
         </StyledView>
