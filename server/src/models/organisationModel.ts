@@ -11,6 +11,8 @@ export interface IOrganisation extends Document {
   products: mongoose.ObjectId[];
   transations: mongoose.ObjectId[];
   revenue: number;
+  cashTotal: number;
+  cardTotal: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +27,8 @@ const OrganisationSchema: Schema = new Schema({
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Item" }],
   transaction: [{ type: mongoose.Schema.Types.ObjectId, ref: "Transaction" }],
   revenue: { type: Number, default: 0 },
+  cashTotal: { type: Number, default: 0 },
+  cardTotal: { type: Number, default: 0},
   createdAt: { type: Date, default: Date.now},
   updatedAt: { type: Date, default: Date.now}
 });

@@ -81,6 +81,21 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
       $set: { updatedAt: new Date() },
     });
 
+    // increment cash total
+    if (paymentType == "cash") {
+      await Organisation.findByIdAndUpdate(organisationId, {
+        $inc: { cashTotal: totalAmount },
+        $set: { updatedAt: new Date() },
+      })
+    } else if (paymentType == "card") { // increment card amount
+      await Organisation.findByIdAndUpdate(organisationId, {
+        $inc: { cardTotal: totalAmount },
+        $set: { updatedAt: new Date() },
+      })
+    } else {
+      res.status(404).json({ message: "Error while categorizing payment type" })
+    }
+
     res.status(201).json(transaction);
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
