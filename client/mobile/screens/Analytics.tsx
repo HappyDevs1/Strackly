@@ -1,15 +1,67 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect } from 'react';
 import { styled } from 'nativewind';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { LineChart } from 'react-native-chart-kit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dimensions } from 'react-native';
+import { getTransactionByType } from '../services/transaction';
+import { getOrganisation } from '../services/organisation';
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
 const AnalyticsScreen = () => {
   const screenWidth = Dimensions.get('window').width;
+
+  const [cashBalance, setCashBalance] = useState<any>(null);
+  const [cardBalance, setCardBalance] = useState<any>(null);
+  const [orgId, setOrgId] = useState<any>(null);
+
+  const getOrganisationId = async () => {
+    try {
+      const userData = await AsyncStorage.getItem("user");
+      if (userData) {
+        const parsedUserData = JSON.parse(userData);
+        console.log("Parsed organisation ID:", parsedUserData.organisationId);
+        setOrgId(parsedUserData.organisationId);
+        return parsedUserData.organisationId;
+      } else {
+        console.log("No user data found in AsyncStorage.");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error retrieving organisation ID:", error);
+      return null;
+    }
+  }
+
+  const getCashAmount = async () => {
+    try {
+      const response = await getTransactionByType({ paymentType: "cash" }, orgId)
+
+      const balance = response?.data?.transactions;
+
+      console.log("Cash transactions", response.data.transactions)
+
+      setCashBalance(balance)
+    } catch (error) {
+      console.error("Failed to get cash amount:", error)
+    }
+  }
+
+  useEffect(() => {
+    const fetchOrgId = async () => {
+      await getOrganisationId()
+    }
+    fetchOrgId()
+  }, [])
+
+  useEffect(() => {
+    if (orgId) {
+      getCashAmount();
+    }
+  }, [])
 
   return (
     <StyledView className="flex-1 bg-gray-50">
@@ -29,7 +81,7 @@ const AnalyticsScreen = () => {
             <Icon name="cash-outline" size={32} color="green" />
             <StyledView className="ml-4">
               <StyledText className="text-sm text-gray-500">Expected Cash</StyledText>
-              <StyledText className="text-lg font-bold text-gray-800">R2,500</StyledText>
+              <StyledText className="text-lg font-bold text-gray-800">{`R${cashBalance}`}</StyledText>
             </StyledView>
           </StyledView>
         </StyledView>
