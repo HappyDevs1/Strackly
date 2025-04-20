@@ -93,7 +93,7 @@ export const createTransaction = async (req: Request, res: Response) : Promise<a
         $set: { updatedAt: new Date() },
       })
     } else {
-      res.status(404).json({ message: "Error while categorizing payment type" })
+      return res.status(404).json({ message: "Error while categorizing payment type" })
     }
 
     res.status(201).json(transaction);
