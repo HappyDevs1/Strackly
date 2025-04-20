@@ -35,7 +35,7 @@ export const getAllTransactions = async (orgId: string) => {
   }
 }
 
-export const getTransactionByType = async (paymentType: any, organisationId: any) => {
+export const getTransactionByType = async ({paymentType}: any, organisationId: any) => {
   try {
     const response = await api.get(`/transactions/${organisationId}/${paymentType}`);
     console.log("Fetched transaction by payment type successfully:", response.data)
