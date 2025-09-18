@@ -71,16 +71,29 @@ This project is built with **React Native (Expo)** for mobile, **React** for web
 ---
 
 ## 📂 Project Structure (High-Level)
-Strackly/
-├── mobile/ # React Native (Expo) mobile app
-├── web/ # React web app
-├── server/ # Node.js + Express backend
-│ ├── routes/ # API endpoints
-│ ├── models/ # MongoDB schemas
-│ ├── controllers/ # Business logic
-│ └── middleware/ # Auth & role management
+📂 Strackly/
+├── client/                # Frontend codebase
+│   ├── mobile/            # React Native mobile app
+│   │   ├── app/(tabs)/    # Navigation tabs for the app
+│   │   ├── assets/        # Static assets (images, icons, etc.)
+│   │   ├── components/    # Reusable React Native components
+│   │   ├── navigation/    # Navigation configuration and logic
+│   │   ├── screens/       # App screens
+│   │   ├── services/      # API/service calls
+│   │   ├── types/         # Shared TypeScript types
+│   │   └── App.tsx        # App entry point
+│   └── web/               # React web app (Vite + TypeScript)
+│       ├── public/        # Static public assets
+│       └── src/           # App source code
+├── server/                # Backend codebase
+│   └── src/
+│       ├── controllers/   # Request/response business logic
+│       ├── middlewares/   # Express middlewares
+│       ├── models/        # Mongoose/MongoDB models
+│       ├── routes/        # Express routes/endpoints
+│       └── index.ts       # Server entry point
+├── .gitignore
 └── README.md
-
 
 ---
 
