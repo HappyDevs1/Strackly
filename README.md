@@ -71,7 +71,7 @@ This project is built with **React Native (Expo)** for mobile, **React** for web
 ---
 
 ## 📂 Project Structure (High-Level)
-📂 Strackly/
+Strackly/
 ├── client/                # Frontend codebase
 │   ├── mobile/            # React Native mobile app
 │   │   ├── app/(tabs)/    # Navigation tabs for the app
