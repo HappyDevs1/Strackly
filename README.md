@@ -1,101 +1,110 @@
-# Strackly - Mobile Inventory Management & Point of Sale System
+📦 Strackly
+===========
+_A Cross-Platform Inventory & Point of Sale System_
 
-Strackly is a **dynamic mobile and web-based inventory management and point of sale (POS) system** designed to streamline business operations for small to medium-sized businesses. It empowers store owners and managers with the tools they need to efficiently track inventory, process sales, and maintain control over their operations in real time.  
+📖 Project Description
+---------------------
+Strackly is a cross-platform, modern inventory management and point of sale (POS) solution for businesses. Featuring real-time barcode scanning, push notifications, robust reporting, and role-based access, it enables efficient operations for both small and medium enterprises. Powered by a unified MERN backend and React Native/React web frontends, Strackly delivers seamless and consistent experiences across mobile and web.
 
-This project is built with **React Native (Expo)** for mobile, **React** for web, and a **MERN-powered backend**, ensuring a unified and scalable solution.
+✨ Key Features
+--------------
+- 📦 **Inventory Management** – Add, update, delete products; track live stock levels
+- 💳 **Point of Sale (POS)** – Intuitive checkout, sales history, revenue analysis
+- 📲 **Barcode Scanning** – Instant lookup using any mobile camera
+- 🔔 **Push Notifications** – Stock alerts and order status updates in real time
+- 👥 **Role-Based Access** – Admin, Cashier, Staff level controls
+- 🔐 **Secure Authentication** – JWT and bcrypt-secured sessions
+- 🌐 **Unified Platform** – Both mobile and web use the same backend API
 
----
+🛠️ Tech Stack
+-------------
+| Section    | Tech                            | Purpose                                        |
+| --------   | ------------------------------- | ---------------------------------------------- |
+| **Mobile** | React Native (Expo), Nativewind | iOS/Android app, Tailwind-style UI             |
+| **Web**    | React, Vite, TailwindCSS        | Web dashboard, admin features                  |
+| **Backend**| Node.js, Express.js, MongoDB    | REST API, business logic, cloud database       |
+| **Other**  | Firebase (Notifications), Multer| Push alerts, file uploads (e.g. images)        |
+| **Auth**   | JWT, bcrypt                     | Secure user auth, role management              |
 
-## 🚀 Features
 
-- **📦 Inventory Management**
-  - Add, update, and delete products
-  - Track stock levels in real time
-  - Automatic updates when sales are made  
+🚀 Setup Instructions
+--------------------
+### Prerequisites
+- Node.js (v18+)
+- Yarn or npm
+- MongoDB Atlas account
 
-- **📲 Barcode Scanning**
-  - Fast and accurate product lookup using mobile camera  
-  - Reduces manual entry errors  
+### Installation
+1. **Clone the repository**
+    ```
+    git clone https://github.com/HappyDevs1/Strackly.git
+    cd Strackly
+    ```
+2. **Install dependencies**
+    ```
+    cd server
+    npm install
+    # In another terminal/tab (for client):
+    cd ../client/mobile
+    yarn install
+    cd ../web
+    yarn install
+    ```
 
-- **🔔 Push Notifications**
-  - Stock level alerts (e.g., low inventory warnings)  
-  - Order status updates in real time  
+3. **Setup environment variables**
+    - Copy `.env.example` in `server/` to `.env` and fill values.
+    - Repeat for mobile/web as needed.
 
-- **🔑 Identity & Access Management (IAM)**
-  - Secure authentication using JWT  
-  - Role-based access control (e.g., admin, cashier, staff)  
+4. **Start the backend**
+    ```
+    cd server
+    npm run dev
+    ```
 
-- **💳 Point of Sale (POS)**
-  - Intuitive checkout flow  
-  - Tracks sales history and revenue reports  
+5. **Run the mobile app**
+    ```
+    cd client/mobile
+    yarn start
+    # Then scan the QR code with Expo Go or run on emulator
+    ```
 
-- **🌐 Unified Platform**
-  - Both mobile and web versions consume the same backend API  
-  - Ensures consistent data and functionality across platforms  
+6. **Run the web app**
+    ```
+    cd client/web
+    yarn dev
+    ```
 
----
+🤝 Contributing
+----------------
+We welcome contributions!
 
-## 🛠️ Tech Stack
+**How to contribute:**
+- Fork the repo
+- Create a feature branch (`git checkout -b feature/your-feature`)
+- Commit and push your work (`git commit -m "feat: ✨ add cool feature"`)
+- Open a pull request
 
-### **Frontend**
-- **Mobile**: React Native (Expo), Nativewind (Tailwind for React Native)
-- **Web**: React  
+**Guidelines:**
+- Use Conventional Commits
+- Follow ESLint & Prettier style
+- Add tests where possible
+- Update documentation for big changes
 
-### **Backend**
-- Node.js  
-- Express.js  
-- MongoDB Atlas (cloud database)  
+📝 License
+----------
+MIT License – see the LICENSE file.
 
-### **Authentication & Security**
-- JWT (JSON Web Tokens) for secure authentication  
-- bcrypt for password hashing  
+🌟 Acknowledgments
+-----------------
+- Mobile icons: Expo/React Native Community
+- Web icons: Lucide/React
+- Deployment powered by Netlify and Vercel
 
-### **Other Integrations**
-- Firebase (Push Notifications)  
-- Multer (File Uploads, e.g., product images)  
+📞 Contact & Support
+--------------------
+- Issues: [GitHub Issues](https://github.com/HappyDevs1/Strackly/issues)
+- Discussions: [GitHub Discussions](https://github.com/HappyDevs1/Strackly/discussions)
 
----
+**Built with ❤️ by HappyDevs1**
 
-## 📱 Mobile App Highlights
-- Built with **React Native + Expo** for cross-platform compatibility (Android & iOS).  
-- Barcode scanning with camera integration.  
-- Smooth, responsive UI styled with **Nativewind**.  
-
----
-
-## 💻 Web App Highlights
-- React-based dashboard for admins and managers.  
-- Manage inventory, view reports, and configure user access.  
-- Real-time synchronization with mobile app via shared API.  
-
----
-
-## 🔒 Security
-- JWT tokens for user sessions.  
-- Role-based access ensures only authorized users can perform critical operations.  
-- All passwords stored securely using **bcrypt hashing**.  
-
----
-
-## 📈 Future Improvements
-- Advanced reporting & analytics dashboards.  
-- Offline-first support for mobile (sync when back online).  
-- Integration with payment gateways.  
-- Multi-language support.  
-
----
-
-## 🤝 Contributing
-Contributions are welcome! Please fork the repository, create a feature branch, and submit a pull request.  
-
----
-
-## 📜 License
-This project is licensed under the MIT License – see the [LICENSE](./LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-**Happy Mahlangu**  
-*Dec 2024 – Present*  
-Strackly: Mobile Inventory Management & Point of Sale System  
+⭐ _Star this repository if you found it helpful!_
